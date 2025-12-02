@@ -21,8 +21,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
+        
         $user = User::create($request->validated());
 
         return redirect()->route('admin.users.create')->with('success', 'Usuario creado exitosamente.');
