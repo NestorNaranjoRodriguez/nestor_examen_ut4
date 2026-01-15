@@ -1,11 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\MensajeController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/form_students', [AlumnoController::class, 'mostrarFormulario'])
+        ->name('form_students');
+    Route::post('/form_students', [AlumnoController::class, 'enviar'])
+        ->name('Students.enviar');
+    Route::get('/form_students/registros', [AlumnoController::class, 'mostrardatosStudent'])
+        ->name('Students.registros');
+});
+
 
 // Ruta que muestra el formulario para crear un nuevo mensaje
 Route::get('/mensaje', [MensajeController::class, 'create'])->name('mensaje.create');
